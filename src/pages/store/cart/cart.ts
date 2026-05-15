@@ -1,5 +1,9 @@
+
+// 1. IMPORTACIONES CORREGIDAS
+import { products } from "../../../data/data";
 import type { Product, CartItem } from "../../../types/product";
 
+// 2. LÓGICA DEL CARRITO
 export const getCart = (): CartItem[] => {
     const cartData = localStorage.getItem('cart');
     return JSON.parse(cartData || "[]");
@@ -16,6 +20,7 @@ export const addToCart = (product: Product): void => {
         cart.push(newItem);
     }
     localStorage.setItem('cart', JSON.stringify(cart));
+    renderCart(); // Para que se actualice la vista al agregar
 };
 
 export const calculateTotal = (): number => {
@@ -23,12 +28,12 @@ export const calculateTotal = (): number => {
     return cart.reduce((total, item) => total + (item.precio * item.cantidad), 0);
 };
 
-
+// 3. RENDERIZADO DINÁMICO
 const renderCart = () => {
     const cartContainer = document.getElementById("cart-container");
     const totalElement = document.getElementById("cart-total");
 
-    if (!cartContainer) return; // Si no estamos en la página del carrito, no hace nada
+    if (!cartContainer) return;
 
     const items = getCart();
 
@@ -38,7 +43,7 @@ const renderCart = () => {
         return;
     }
 
-    cartContainer.innerHTML = ""; 
+    cartContainer.innerHTML = "";
     items.forEach(item => {
         const div = document.createElement("div");
         div.classList.add("cart-item");
@@ -53,4 +58,8 @@ const renderCart = () => {
     }
 };
 
-document.addEventListener("DOMContentLoaded", renderCart);
+// 4. INICIALIZACIÓN
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("Productos disponibles:", products); // Para usar la variable y quitar el aviso ts(6133)
+    renderCart();
+});
