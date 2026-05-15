@@ -1,14 +1,12 @@
-
-// 1. IMPORTACIONES CORREGIDAS
-import { products } from "../../../data/data";
 import type { Product, CartItem } from "../../../types/product";
 
-// 2. LÓGICA DEL CARRITO
+// Obtener datos del LocalStorage
 export const getCart = (): CartItem[] => {
     const cartData = localStorage.getItem('cart');
-    return JSON.parse(cartData || "[]");
+    return cartData ? JSON.parse(cartData) : [];
 };
 
+// Función para agregar (se exporta para que Home la use)
 export const addToCart = (product: Product): void => {
     const cart = getCart();
     const existingItem = cart.find(item => item.id === product.id);
@@ -16,51 +14,47 @@ export const addToCart = (product: Product): void => {
     if (existingItem) {
         existingItem.cantidad += 1;
     } else {
-        const newItem: CartItem = { ...product, cantidad: 1 };
-        cart.push(newItem);
+        cart.push({ ...product, cantidad: 1 });
     }
+
     localStorage.setItem('cart', JSON.stringify(cart));
-    renderCart(); // Para que se actualice la vista al agregar
+    // Si estamos en la página del carrito, actualizamos la vista
+    renderCart();
 };
 
-export const calculateTotal = (): number => {
-    const cart = getCart();
-    return cart.reduce((total, item) => total + (item.precio * item.cantidad), 0);
-};
-
-// 3. RENDERIZADO DINÁMICO
-const renderCart = () => {
-    const cartContainer = document.getElementById("cart-container");
+// Función para dibujar el carrito en el HTML
+export const renderCart = () => {
+    const container = document.getElementById("cart-container");
     const totalElement = document.getElementById("cart-total");
-
-    if (!cartContainer) return;
+    if (!container) return;
 
     const items = getCart();
-
+    
     if (items.length === 0) {
-        cartContainer.innerHTML = "<p>Tu carrito está vacío</p>";
+        container.innerHTML = "<p>Tu carrito está vacío. ¡Ve a comprar algo rico!</p>";
         if (totalElement) totalElement.innerText = "0";
         return;
     }
 
-    cartContainer.innerHTML = "";
+    container.innerHTML = "";
     items.forEach(item => {
         const div = document.createElement("div");
         div.classList.add("cart-item");
         div.innerHTML = `
-            <p><strong>${item.nombre}</strong> - Cantidad: ${item.cantidad} - Precio: $${item.precio * item.cantidad}</p>
+            <p>
+                <strong>${item.nombre}</strong> (x${item.cantidad}) 
+                - Precio unitario: $${item.precio} 
+                - Subtotal: $${item.precio * item.cantidad}
+            </p>
         `;
-        cartContainer.appendChild(div);
+        container.appendChild(div);
     });
 
     if (totalElement) {
-        totalElement.innerText = calculateTotal().toString();
+        const total = items.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
+        totalElement.innerText = total.toString();
     }
 };
 
-
-
-document.addEventListener("DOMContentLoaded", () => {
-    
-    renderCart();
-});
+// Ejecutar al cargar la página del carrito
+document.addEventListener("DOMContentLoaded", renderCart);

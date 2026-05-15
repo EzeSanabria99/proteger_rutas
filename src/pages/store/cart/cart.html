@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Carrito</title>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+<body>
+    <nav>
+        <a href="../../client/home/home.html">⬅ Volver al Catálogo</a>
+    </nav>
+
+    <h1>Tu Carrito de Compras</h1>
+    
+    <div id="cart-container">
+        </div>
+
+    <div class="cart-footer">
+        <h3>Total: $<span id="cart-total">0</span></h3>
+        <button onclick="localStorage.clear(); location.reload();">Vaciar Carrito</button>
+    </div>
+
+    <script type="module" src="./cart.ts"></script>
+</body>
+</html>

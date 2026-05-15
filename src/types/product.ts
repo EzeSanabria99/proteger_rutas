@@ -1,4 +1,3 @@
-
 export interface Product {
     id: number;
     nombre: string;
@@ -6,6 +5,7 @@ export interface Product {
     categoria: string;
     imagen: string;
 }
+
 
 export interface CartItem extends Product {
     cantidad: number;
