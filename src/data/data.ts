@@ -1,25 +1,22 @@
-import type { Product } from "../types/product";
+export interface Icategoria { id: number; nombre: string; }
 
-export const products: Product[] = [
-    {
-        id: 1,
-        nombre: "Hamburguesa Clásica",
-        precio: 2500,
-        categoria: "Hamburguesas",
-        imagen: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&auto=format&fit=crop"
-    },
-    {
-        id: 2,
-        nombre: "Pizza Especial",
-        precio: 3800,
-        categoria: "Pizzas",
-        imagen: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&auto=format&fit=crop"
-    },
-    {
-        id: 3,
-        nombre: "Papas Fritas",
-        precio: 1200,
-        categoria: "Snacks",
-        imagen: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500&auto=format&fit=crop"
-    }
+export interface Product { 
+    id: number; nombre: string; precio: number; 
+    descripcion: string; imagen: string; categoriaId: number; 
+}
+
+export interface CartItem extends Product { 
+    quantity: number; 
+}
+
+export const PRODUCTS: Product[] = [
+    { id: 1, nombre: 'Hamburguesa Completa', precio: 4500, descripcion: 'Pan artesanal, medallón de carne.', imagen: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400', categoriaId: 1 },
+    { id: 2, nombre: 'Pizza Especial', precio: 8500, descripcion: 'Muzarella y jamón.', imagen: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400', categoriaId: 2 },
+    { id: 3, nombre: 'Papas Fritas', precio: 3000, descripcion: 'Papas rústicas.', imagen: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400', categoriaId: 3 }
+];
+
+export const CATEGORIES: Icategoria[] = [
+    { id: 1, nombre: 'Hamburguesas' },
+    { id: 2, nombre: 'Pizzas' },
+    { id: 3, nombre: 'Guarniciones' }
 ];
