@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Proyecto: Protección de Rutas (Educativo)
 
 ## ✍️ Descripción
@@ -81,3 +82,6 @@ El mecanismo es simple y se gestiona desde el código TypeScript en la carpeta `
 ├── package.json              # Dependencias y scripts
 └── README.md                 # Este archivo
 ```
+=======
+# proteger_rutas
+>>>>>>> d5d294c63e98642ae045de091a3d45eb901741ff
