@@ -62,15 +62,5 @@ const renderCart = () => {
 
 document.addEventListener("DOMContentLoaded", () => {
     
-    const currentCart = getCart();
-    
-    
-    if (currentCart.length === 0) {
-        
-        const initialItems = products.map(p => ({ ...p, cantidad: 1 }));
-        localStorage.setItem('cart', JSON.stringify(initialItems));
-    }
-    
-    
     renderCart();
 });
