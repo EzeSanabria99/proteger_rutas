@@ -58,8 +58,19 @@ const renderCart = () => {
     }
 };
 
-// 4. INICIALIZACIÓN
+
+
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("Productos disponibles:", products); // Para usar la variable y quitar el aviso ts(6133)
+    
+    const currentCart = getCart();
+    
+    
+    if (currentCart.length === 0) {
+        
+        const initialItems = products.map(p => ({ ...p, cantidad: 1 }));
+        localStorage.setItem('cart', JSON.stringify(initialItems));
+    }
+    
+    
     renderCart();
 });
