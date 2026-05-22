@@ -38,7 +38,7 @@ btnVaciar?.addEventListener('click', () => {
 
 btnComprar?.addEventListener('click', () => {
     if (carrito.length === 0) return alert("Carrito vacío");
-    alert("¡Muchisimas gracias por su compra! Tu pedido ya va en camino hacia vos. ¡Que lo disfrutes mucho!");
+    alert("¡Gracias por tu compra! Tu pedido está en camino.");
     localStorage.removeItem('carrito');
     carrito = [];
     renderCarrito();
